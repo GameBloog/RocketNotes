@@ -1,5 +1,5 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
-
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
 import { NoteItem } from "../../components/NoteItem"
@@ -9,6 +9,26 @@ import { Button } from "../../components/Button"
 import { Container, Form } from "./style"
 
 export function New() {
+  const [links, setLinks] = useState([])
+  const [newLink, setNewLink] = useState("")
+
+  const [tags, setTags] = useState([])
+  const [newTag, setNewTag] = useState("")
+
+  function handleAddLink() {
+    setLinks((prevState) => [...prevState, newLink])
+    setNewLink("")
+  }
+
+  function handleRemovelink(deleted) {
+    setLinks((prevState) => prevState.filter((link) => link !== deleted))
+  }
+
+  function handleAddTag() {
+    setTags((prevState) => [...prevState, newTag])
+    setNewTag("")
+  }
+
   return (
     <Container>
       <Header />
@@ -25,14 +45,34 @@ export function New() {
           <Textarea placeholder="Observações" />
 
           <Section title="Links úteis">
-            <NoteItem value="https://rocketseat" />
-            <NoteItem isNew placeholder="Novo link" />
+            {links.map((link, index) => (
+              <NoteItem
+                key={String(index)}
+                value={link}
+                onClick={() => handleRemovelink(link)}
+              />
+            ))}
+            <NoteItem
+              isNew
+              placeholder="Novo link"
+              value={newLink}
+              onChange={(e) => setNewLink(e.target.value)}
+              onClick={handleAddLink}
+            />
           </Section>
 
           <Section title="Marcadores">
             <div className="tags">
-              <NoteItem value="react" />
-              <NoteItem isNew placeholder="Nova tag" />
+              {tags.map((tag, index) => (
+                <NoteItem key={String(index)} value={tag} onClick={() => {}} />
+              ))}
+              <NoteItem
+                isNew
+                placeholder="Nova tag"
+                onChange={(e) => setNewTag(e.target.value)}
+                value={newTag}
+                onClick={handleAddTag}
+              />
             </div>
           </Section>
 
