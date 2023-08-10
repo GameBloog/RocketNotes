@@ -8,6 +8,9 @@ import { Input } from "../../components/Input"
 import { Button } from "../../components/Button"
 import { Container, Form, Background } from "./style"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export function SingUp() {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
@@ -17,7 +20,19 @@ export function SingUp() {
 
   function handleSingUp() {
     if (!name || !email || !password) {
-      return alert("Preencha todos os campos")
+      const notify = () =>
+        toast.error("Preencha todos os campos", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+      return notify()
     }
 
     api
@@ -28,9 +43,33 @@ export function SingUp() {
       })
       .catch((error) => {
         if (error.response) {
-          alert(error.response.data.message)
+          const notify = () =>
+            toast.error(error.response.data.message, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+
+          notify()
         } else {
-          alert("Não foi possível cadastrar")
+          const notify = () =>
+            toast.error("Não foi possível cadastrar", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+
+          notify()
         }
       })
   }

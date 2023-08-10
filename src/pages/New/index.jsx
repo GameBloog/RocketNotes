@@ -10,6 +10,9 @@ import { ButtonText } from "../../components/ButtonText"
 import { Container, Form } from "./style"
 import { api } from "../../services/api"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export function New() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -46,17 +49,55 @@ export function New() {
 
   async function handleNewNote() {
     if (!title) {
-      return alert("Digite o título da nota")
+      const notify = () =>
+        toast.error("Digite o título da nota", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+      return notify()
     }
     if (newLink) {
-      return alert(
-        "Você deixou um Link no campo sem adicionar. Clique para adicionar ou deixe o campo vázio"
-      )
+      const notify = () =>
+        toast.error(
+          "Você deixou um Link no campo sem adicionar. Clique para adicionar ou deixe o campo vázio",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        )
+
+      return notify()
     }
     if (newTag) {
-      return alert(
-        "Você deixou uma tag no campo sem adicionar. Clique para adicionar ou deixe o campo vázio"
-      )
+      const notify = () =>
+        toast.error(
+          "Você deixou uma tag no campo sem adicionar. Clique para adicionar ou deixe o campo vázio",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        )
+
+      return notify()
     }
 
     await api.post("/notes", {

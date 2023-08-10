@@ -23,7 +23,7 @@ function AuthProvider({ children }) {
     } catch (error) {
       if (error.response) {
         const notify = () =>
-          toast.error("E-mail/ou senha errado", {
+          toast.error(error.response.data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -73,12 +73,48 @@ function AuthProvider({ children }) {
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
 
       setData({ user, token: data.token })
-      alert("Perfil atualizado!")
+      const notify = () =>
+        toast.success("Perfil atualizado com sucesso", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+      notify()
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message)
+        const notify = () =>
+          toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+
+        notify()
       } else {
-        alert("Não foi possível atualizar o perfil.")
+        const notify = () =>
+          toast.error("Não foi possível atualizar o perfil.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+
+        notify()
       }
     }
   }
