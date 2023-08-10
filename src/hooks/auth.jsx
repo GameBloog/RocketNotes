@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { api } from "../services/api"
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
@@ -19,9 +22,32 @@ function AuthProvider({ children }) {
       setData({ user, token })
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message)
+        const notify = () =>
+          toast.error("E-mail/ou senha errado", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+
+        notify()
       } else {
-        alert("Não foi possível entrar")
+        toast.error("Não foi possível entrar", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+        notify()
       }
     }
   }
@@ -81,6 +107,7 @@ function AuthProvider({ children }) {
       }}
     >
       {children}
+      <ToastContainer />
     </AuthContext.Provider>
   )
 }

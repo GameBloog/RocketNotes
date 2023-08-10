@@ -20,6 +20,8 @@ export const Container = styled.div`
 export const Links = styled.ul`
   list-style: none;
 
+  max-width: 100vw;
+
   > li {
     margin-top: 12px;
 
