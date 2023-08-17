@@ -17,7 +17,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "#3E3B47",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -58,7 +58,10 @@ export function Details() {
       {data && (
         <main>
           <Content>
-            <ButtonText title="Excluir nota" onClick={handleRemove} />
+            <ButtonText
+              title="Excluir nota"
+              onClick={(handleRemove, handleOpen)}
+            />
 
             <h1>{data.title}</h1>
 
@@ -97,13 +100,13 @@ export function Details() {
           >
             <Box sx={style}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+                Tem certeza que deseja excluir a nota?
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                Caso clique em "confirmar" a nota será excluída.
               </Typography>
               <Button title="Confirmar" onClick={handleRemove} />
-              <Button title="Cancelar" />
+              <Button title="Cancelar" onClick={handleClose} />
             </Box>
           </Modal>
         </main>
